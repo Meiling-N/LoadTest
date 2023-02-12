@@ -14,27 +14,27 @@ public class Main : MonoBehaviour
     Sprite surviveTmp;
 
     int loopCount     = 0;
-    float averageTime = 0;
+    float sumTime = 0;
 
     void Update()
     {
-        //Œv‘ªŠJn
+        //è¨ˆæ¸¬é–‹å§‹
         var startTime = Time.realtimeSinceStartup;
         for(int i = 0; i < cLoadNum; i++) {
             loadA();
         }
         var endTime   = Time.realtimeSinceStartup;
 
-        //‚©‚©‚Á‚½ŠÔ‚ğo‚·
+        //ã‹ã‹ã£ãŸæ™‚é–“ã‚’å‡ºã™
         var passedTime = endTime - startTime;
-        averageTime   += passedTime;
+        sumTime   += passedTime;
         Debug.Log("passed: " + passedTime);
         
-        //Œãˆ—
+        //å¾Œå‡¦ç†
         destruct();
         loopCount++;
         if(loopCount == cLoopKaisuForAverage) {
-            Debug.Log("averageTime: " + averageTime / (float)cLoopKaisuForAverage);
+            Debug.Log("averageTime: " + sumTime / (float)cLoopKaisuForAverage);
             Destroy(this.gameObject);
         }
     }
@@ -50,13 +50,13 @@ public class Main : MonoBehaviour
 
 
 
-    //–ˆ‰ñResources.Load
+    //æ¯å›Resources.Load
     void loadA() {
         spriteStack.Push(Resources.Load<Sprite>("128"));
         //imageStack.Push(Resources.Load<Image>("128"));
     }
 
-    //ì‚Á‚½“z‚ğg‚¤,create
+    //ä½œã£ãŸå¥´ã‚’ä½¿ã†,create
     void loadB() {
         string path = "512";
         if(spriteStack.Count == 0) {
@@ -67,7 +67,7 @@ public class Main : MonoBehaviour
         }
     }
 
-    //ì‚Á‚½“z‚ğg‚¤,instantiate
+    //ä½œã£ãŸå¥´ã‚’ä½¿ã†,instantiate
     void loadC() {
         string path = "32";
         if (spriteStack.Count == 0) {
@@ -78,8 +78,8 @@ public class Main : MonoBehaviour
         }
     }
 
-    //–ˆ‰ñŠO•”ƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚İ
-    //C#‚Ì System.Drawing.Image‚ª•W€‚Å‚Í“ü‚Á‚Ä‚È‚³‚»‚¤
+    //æ¯å›å¤–éƒ¨ãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã¿
+    //C#ã® System.Drawing.ImageãŒæ¨™æº–ã§ã¯å…¥ã£ã¦ãªã•ãã†
     void loadD() {
         var path = System.IO.Path.Combine(Application.dataPath, "Gaibu\\32.png");
         var tex = readImageFile(path);
